@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:text="账户登录"
+        android:textSize="30sp"
+        android:textColor="#000"
+
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:text="新用户请使用手机二维码或者第三方登录"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:hint="用户名.邮箱.或者手机号"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:layout_width="match_parent"
+        android:hint="请输入密码"
+        android:layout_height="wrap_content" />
+    <Button
+        android:background="#2DAF32"
+        android:id="@+id/btn_denglu"
+        android:layout_width="match_parent"
+        android:layout_marginTop="18dp"
+        android:textColor="#fff"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:text="登录"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:id="@+id/tv_message_Login"
+        android:text="使用手机验证码快捷登录"
+        android:layout_marginTop="19dp"
+        android:gravity="center"
+        android:textColor="#2DAF32"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:text="登录有问题?查看帮助"
+        android:layout_marginTop="280dp"
+        android:gravity="center"
+        android:textColor="#2DAF32"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_weight="1"
+            android:layout_width="80dp"
+            android:layout_gravity="center"
+            android:layout_height="1dp"></View>
+        <View
+            android:layout_weight="1"
+            android:layout_width="80dp"
+            android:background="#000"
+            android:layout_gravity="center"
+            android:layout_height="1dp"></View>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="    社交账号登录    "
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_weight="1"
+            android:layout_width="80dp"
+            android:background="#000"
+            android:layout_gravity="center"
+            android:layout_height="1dp"></View>
+        <View
+            android:layout_weight="1"
+            android:layout_width="80dp"
+
+            android:layout_gravity="center"
+            android:layout_height="1dp"></View>
+
+    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:src="@drawable/button"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

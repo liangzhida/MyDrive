@@ -32,8 +32,6 @@ public class ChapterActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
         String url = intent.getStringExtra("url");
-
-
         url_chapter = "http://www.hengyan.com" + url;
         tv_chapter_title.setText(title);
         init();
@@ -60,6 +58,7 @@ public class ChapterActivity extends AppCompatActivity implements View.OnClickLi
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             tv_chapter_content.setText(aNull);
                             tv_chapter_zishu.setText(text);
                         }

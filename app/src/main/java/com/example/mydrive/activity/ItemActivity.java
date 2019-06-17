@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.mydrive.LoadingDialog;
 import com.example.mydrive.R;
 import com.example.mydrive.bean.Item;
 
@@ -44,7 +45,7 @@ public class ItemActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ItemActivity.this, ChapterActivity.class);
-                intent.putExtra("position",list.get(position).getItem()+"");
+                intent.putExtra("title",list.get(position).getItem()+"");
                 intent.putExtra("url",list.get(position).getUrl()+"");
                 intent.putExtra("position",position+"");
                 startActivity(intent);
@@ -53,10 +54,12 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     private void init() {
+        LoadingDialog.showDialog(ItemActivity.this);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+
                     list= new ArrayList<Item>();
                     Document document = Jsoup.connect(url).get();
                     Elements select = document.select("div.chapter");
@@ -116,9 +119,11 @@ public class ItemActivity extends AppCompatActivity {
                                     return convertView;
                                 }
                             });
+
                         }
                     });
 
+                    LoadingDialog.disDialog();
 
                 } catch (Exception e) {
                     e.printStackTrace();
