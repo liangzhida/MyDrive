@@ -1,10 +1,14 @@
 package com.example.mydrive.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -20,18 +24,8 @@ import com.squareup.okhttp.Response;
 
 public class XunxuActivity extends AppCompatActivity {
 
-    private TextView tv_title;
-    private ImageView img_pic;
-    private RadioButton rb_a;
-    private RadioButton rb_b;
-    private RadioButton rb_c;
-    private RadioButton rb_d;
-    private RadioGroup radioGroup;
-    private int i = 0;
-    private LinearLayout ll1;
-    private TextView tvdaan;
-    private TextView tvjiexi;
-    private LinearLayout ll2;
+
+    private ListView lv_xunxu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,119 +40,147 @@ public class XunxuActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
-                    OkHttpClient okHttpClient = new OkHttpClient();
-                    Request request = new Request.Builder().url("http://apicloud.mob.com/tiku/kemu1/query?key=520520test&page=1&size=100").build();
-                    try {
-                        Response response = okHttpClient.newCall(request).execute();
-                        String string = response.body().string();
-                        final Subject subject = new Gson().fromJson(string, Subject.class);
+                OkHttpClient okHttpClient = new OkHttpClient();
+                Request request = new Request.Builder().url("http://v.juhe.cn/jztk/query?subject=1&model=c1&key=f5fa410f03e84fc4f3d491fb3a324aaf&testType=rand").get().build();
+                try {
+                    Response response = okHttpClient.newCall(request).execute();
+                    String string = response.body().string();
+                    final Subject subject = new Gson().fromJson(string, Subject.class);
 
-                        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                switch (checkedId) {
-                                    case R.id.rb_a:
-                                        if (subject.getResult().getList().get(i).getVal().contains("1")) {
-//                                        Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
-                                            i++;
-                                            ll2.setVisibility(View.GONE);
-                                            radioGroup.clearCheck();
-                                        } else {
-                                            ll2.setVisibility(View.VISIBLE);
-                                        }
-                                        break;
-                                    case R.id.rb_b:
-                                        if (subject.getResult().getList().get(i).getVal().contains("2")) {
-//                                        Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
-                                            ll2.setVisibility(View.GONE);
-                                            radioGroup.clearCheck();
-                                            i++;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            lv_xunxu.setAdapter(new BaseAdapter() {
+                                class ViewHolder {
+                                    public View rootView;
+                                    public TextView tv_title;
+                                    public ImageView img_timu;
+                                    public RadioButton rb_1;
+                                    public RadioButton rb_2;
+                                    public RadioButton rb_3;
+                                    public RadioButton rb_4;
+                                    public RadioGroup radioGroup;
 
-                                        } else {
-                                            ll2.setVisibility(View.VISIBLE);
-                                        }
-                                        break;
-                                    case R.id.rb_c:
-                                        if (subject.getResult().getList().get(i).getVal().contains("3")) {
-//                                        Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
-                                            radioGroup.clearCheck();
-                                            ll2.setVisibility(View.GONE);
-                                            i++;
+                                    public ViewHolder(View rootView) {
+                                        this.rootView = rootView;
+                                        this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
+                                        this.img_timu = (ImageView) rootView.findViewById(R.id.img_timu);
+                                        this.rb_1 = (RadioButton) rootView.findViewById(R.id.rb_1);
+                                        this.rb_2 = (RadioButton) rootView.findViewById(R.id.rb_2);
+                                        this.rb_3 = (RadioButton) rootView.findViewById(R.id.rb_3);
+                                        this.rb_4 = (RadioButton) rootView.findViewById(R.id.rb_4);
+                                        this.radioGroup = (RadioGroup) rootView.findViewById(R.id.radioGroup);
+                                    }
 
-                                        } else {
-                                            ll2.setVisibility(View.VISIBLE);
-                                        }
-                                        break;
-                                    case R.id.rb_d:
-                                        if (subject.getResult().getList().get(i).getVal().contains("4")) {
-//                                        Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
-                                            radioGroup.clearCheck();
-                                            i++;
-                                            ll2.setVisibility(View.GONE);
-
-                                        } else {
-
-                                            ll2.setVisibility(View.VISIBLE);
-                                        }
-                                        break;
-                                }
-                            }
-                        });
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                tv_title.setText(i + 1 + "." + subject.getResult().getList().get(i).getTitle());
-                                if (subject.getResult().getList().get(i).getTikuType().contains("select")) {
-                                    rb_a.setText("A."+subject.getResult().getList().get(i).getA());
-                                    rb_b.setText("B."+subject.getResult().getList().get(i).getB());
-                                    rb_c.setText("C."+subject.getResult().getList().get(i).getC());
-                                    rb_d.setText("D."+subject.getResult().getList().get(i).getD());
-                                } else {
-                                    rb_a.setVisibility(View.VISIBLE);
-                                    rb_b.setVisibility(View.VISIBLE);
-                                    rb_c.setVisibility(View.GONE);
-                                    rb_d.setVisibility(View.GONE);
                                 }
 
-                                if (subject.getResult().getList().get(i).getVal().contains("1")){
-                                    tvdaan.setText("答案:A");
-                                }else if (subject.getResult().getList().get(i).getVal().contains("2")){
-                                    tvdaan.setText("答案:B");
-                                }else if (subject.getResult().getList().get(i).getVal().contains("3")){
-                                    tvdaan.setText("答案:C");
-                                }else if (subject.getResult().getList().get(i).getVal().contains("4")){
-                                    tvdaan.setText("答案:D");
+                                @Override
+                                public int getCount() {
+                                    return subject.getResult().size();
                                 }
-                                tvjiexi.setText(subject.getResult().getList().get(i).getExplainText());
-                                if (subject.getResult().getList().get(i).getFile().length()>0){
-                                    Glide.with(XunxuActivity.this).load(subject.getResult().getList().get(i).getFile()).into(img_pic);
-                                }
-                            }
-                        });
-                        Thread.sleep(2000);
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                                @Override
+                                public Object getItem(int position) {
+                                    return subject.getResult().get(position);
+                                }
+
+                                @Override
+                                public long getItemId(int position) {
+                                    return position;
+                                }
+
+                                @Override
+                                public View getView(final int position, View convertView, ViewGroup parent) {
+                                    convertView = LayoutInflater.from(XunxuActivity.this).inflate(R.layout.item, parent, false);
+                                    ViewHolder viewHolder = new ViewHolder(convertView);
+                                    final int i=position+1;
+                                    viewHolder.tv_title.setText(i+"."+subject.getResult().get(position).getQuestion());
+                                    viewHolder.rb_1.setText("A."+subject.getResult().get(position).getItem1());
+                                    viewHolder.rb_2.setText("B"+subject.getResult().get(position).getItem2());
+                                    viewHolder.rb_3.setText("C"+subject.getResult().get(position).getItem3());
+                                    viewHolder.rb_4.setText("D"+subject.getResult().get(position).getItem4());
+                                    final int j=position;
+                                    viewHolder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                                        @Override
+                                        public void onCheckedChanged(RadioGroup group, int checkedId) {
+                                            switch (checkedId){
+                                                case R.id.rb_1:
+                                                    if (subject.getResult().get(position).getAnswer().equals("1")){
+                                                        Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
+                                                    }else {
+                                                        Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
+                                                        intent.putExtra("position",j);
+                                                        startActivity(intent);
+                                                    }
+
+                                                    break;
+                                                case R.id.rb_2:
+                                                    if (subject.getResult().get(position).getAnswer().equals("2")){
+                                                        Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
+                                                    }else {
+                                                        Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
+                                                        intent.putExtra("position",j);
+                                                        startActivity(intent);
+                                                    }
+
+                                                    break;
+                                                case R.id.rb_3:
+                                                    if (subject.getResult().get(position).getAnswer().equals("3")){
+                                                        Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
+                                                    }else {
+                                                        Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
+                                                        intent.putExtra("position",j);
+                                                        startActivity(intent);
+                                                    }
+
+                                                    break;
+                                                case R.id.rb_4:
+                                                    if (subject.getResult().get(position).getAnswer().equals("4")){
+                                                        Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
+                                                    }else {
+                                                        Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
+                                                        intent.putExtra("position",j);
+                                                        startActivity(intent);
+                                                    }
+
+                                                    break;
+
+
+                                            }
+                                        }
+                                    });
+                                    if (subject.getResult().get(position).getItem3().equals("")){
+                                        viewHolder.rb_3.setVisibility(View.GONE);
+                                        viewHolder.rb_4.setVisibility(View.GONE);
+                                    }else {
+
+                                    }
+                                    if (subject.getResult().get(position).getUrl().equals("")){
+
+                                    }else {
+                                        Glide.with(XunxuActivity.this).load(subject.getResult().get(position).getUrl()).into(viewHolder.img_timu);
+                                    }
+
+                                    return convertView;
+                                }
+                            });
+                        }
+                    });
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
             }
         }).start();
+
+
     }
 
+
     private void initView() {
-        tv_title = (TextView) findViewById(R.id.tv_title);
-        img_pic = (ImageView) findViewById(R.id.img_pic);
-        rb_a = (RadioButton) findViewById(R.id.rb_a);
-        rb_b = (RadioButton) findViewById(R.id.rb_b);
-        rb_c = (RadioButton) findViewById(R.id.rb_c);
-        rb_d = (RadioButton) findViewById(R.id.rb_d);
-        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
-        ll1 = (LinearLayout) findViewById(R.id.ll1);
-        tvdaan = (TextView) findViewById(R.id.tvdaan);
-        tvjiexi = (TextView) findViewById(R.id.tvjiexi);
-        ll2 = (LinearLayout) findViewById(R.id.ll2);
+
+
+        lv_xunxu = (ListView) findViewById(R.id.lv_xunxu);
     }
 }
