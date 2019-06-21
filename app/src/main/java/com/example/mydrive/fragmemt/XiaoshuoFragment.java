@@ -28,6 +28,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,9 +99,28 @@ public class XiaoshuoFragment extends Fragment {
             ImageView imageView=new ImageView(activity);
             imageView.setBackgroundResource(i);
             viewpage_imageList.add(imageView);
-            
-
         }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Document document = Jsoup.connect("http://top.hengyan.com/").get();
+                    Elements elements = document.select("div.txt").select("li#wenzi0");
+                    final String a = elements.select("a").text();
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_xiaoshuoming.setText(a);
+
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
 
     }
 
