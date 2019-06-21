@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mydrive.R;
+import com.example.mydrive.bean.User;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -54,6 +55,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
             }
         });
+        tv_zhuce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ZhuceActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initView() {
@@ -77,7 +85,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_denglu:
-
+                submit();
+                User user = new User();
+                String s="1";
+                s=edt_name.getText().toString();
+                if ("111".contains(s)){
+                        Toast.makeText(this, "登录成功!", Toast.LENGTH_SHORT).show();
+                        finish();
+                }else {
+                    Toast.makeText(this, "登录失败!", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
