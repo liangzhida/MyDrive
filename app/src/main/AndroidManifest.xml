@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ErrorActivity"></activity>
+        <activity android:name=".activity.QuestionsActivity"></activity>
+        <activity android:name=".activity.ErrorActivity" />
         <activity android:name=".activity.ZhuceActivity" />
         <activity android:name=".activity.MessageActivity" />
         <activity android:name=".activity.LoginActivity" />

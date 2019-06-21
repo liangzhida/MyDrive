@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.example.mydrive.R;
 import com.example.mydrive.activity.MoniActivity;
+import com.example.mydrive.activity.QuestionsActivity;
 import com.example.mydrive.activity.XunxuActivity;
 
 /**
@@ -21,6 +22,8 @@ public class KaoshiFragment extends Fragment {
     private ImageView img_xunxu;
     private ImageView img_moni;
     private FragmentActivity activity;
+    private ImageView img_error;
+    private ImageView img_suiji;
 
     public KaoshiFragment() {
         // Required empty public constructor
@@ -54,5 +57,8 @@ public class KaoshiFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        img_error = (ImageView) view.findViewById(R.id.img_error);
+        img_suiji = (ImageView) view.findViewById(R.id.img_suiji);
     }
 }

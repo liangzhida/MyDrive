@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.mydrive.R;
+import com.example.mydrive.bean.Errors;
 import com.example.mydrive.bean.Subject;
 import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
@@ -99,7 +100,7 @@ public class XunxuActivity extends AppCompatActivity {
                                     viewHolder.rb_2.setText("B"+subject.getResult().get(position).getItem2());
                                     viewHolder.rb_3.setText("C"+subject.getResult().get(position).getItem3());
                                     viewHolder.rb_4.setText("D"+subject.getResult().get(position).getItem4());
-                                    final int j=position;
+                                    final String string=position+"";
                                     viewHolder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                                         @Override
                                         public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -108,8 +109,10 @@ public class XunxuActivity extends AppCompatActivity {
                                                     if (subject.getResult().get(position).getAnswer().equals("1")){
                                                         Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
                                                     }else {
+                                                        Errors errors=new Errors();
+                                                        errors.setNum(position);
                                                         Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
-                                                        intent.putExtra("position",j);
+                                                        intent.putExtra("position",string);
                                                         startActivity(intent);
                                                     }
 
@@ -118,8 +121,10 @@ public class XunxuActivity extends AppCompatActivity {
                                                     if (subject.getResult().get(position).getAnswer().equals("2")){
                                                         Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
                                                     }else {
+                                                        Errors errors=new Errors();
+                                                        errors.setNum(position);
                                                         Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
-                                                        intent.putExtra("position",j);
+                                                        intent.putExtra("position",string);
                                                         startActivity(intent);
                                                     }
 
@@ -128,8 +133,10 @@ public class XunxuActivity extends AppCompatActivity {
                                                     if (subject.getResult().get(position).getAnswer().equals("3")){
                                                         Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
                                                     }else {
+                                                        Errors errors=new Errors();
+                                                        errors.setNum(position);
                                                         Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
-                                                        intent.putExtra("position",j);
+                                                        intent.putExtra("position",string);
                                                         startActivity(intent);
                                                     }
 
@@ -138,8 +145,10 @@ public class XunxuActivity extends AppCompatActivity {
                                                     if (subject.getResult().get(position).getAnswer().equals("4")){
                                                         Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
                                                     }else {
+                                                        Errors errors=new Errors();
+                                                        errors.setNum(position);
                                                         Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
-                                                        intent.putExtra("position",j);
+                                                        intent.putExtra("position",string);
                                                         startActivity(intent);
                                                     }
 

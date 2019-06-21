@@ -14,6 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/img_error"
             android:layout_width="100dp"
             android:src="@drawable/left"
             android:layout_height="360dp" />
@@ -53,6 +54,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/img_suiji"
             android:layout_width="100dp"
             android:src="@drawable/right"
             android:layout_height="360dp" />

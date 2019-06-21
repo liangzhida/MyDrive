@@ -33,7 +33,7 @@ public class ErrorActivity extends AppCompatActivity {
     private TextView tvanswer;
     private TextView tvjiexi;
     private LinearLayout ll2;
-    private String position="1";
+    private String position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +41,8 @@ public class ErrorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_error);
         initView();
         Intent intent1=getIntent();
-       String position1 = intent1.getStringExtra("position");
-        Toast.makeText(ErrorActivity.this, ""+position1, Toast.LENGTH_SHORT).show();
+        position = intent1.getStringExtra("position");
+        Toast.makeText(ErrorActivity.this, ""+position, Toast.LENGTH_SHORT).show();
         init();
     }
 
@@ -52,7 +52,7 @@ public class ErrorActivity extends AppCompatActivity {
             public void run() {
 
                 OkHttpClient okHttpClient = new OkHttpClient();
-                Request request = new Request.Builder().url("http://v.juhe.cn/jztk/query?subject=1&model=c1&key=f5fa410f03e84fc4f3d491fb3a324aaf&testType=order").get().build();
+                Request request = new Request.Builder().url("http://v.juhe.cn/jztk/query?subject=1&model=c1&key=f5fa410f03e84fc4f3d491fb3a324aaf&testType=rand").get().build();
                 Response response = null;
                 try {
                     response = okHttpClient.newCall(request).execute();
@@ -63,7 +63,7 @@ public class ErrorActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
-                            String i= position +1;
+                            int i= Integer.valueOf(position) +1;
                             tv_title.setText(i+"."+subject.getResult().get(Integer.valueOf(position)).getQuestion()+"");
                             rb_1.setText("A."+subject.getResult().get(Integer.valueOf(position)).getItem1());
                             rb_2.setText("B."+subject.getResult().get(Integer.valueOf(position)).getItem2());
