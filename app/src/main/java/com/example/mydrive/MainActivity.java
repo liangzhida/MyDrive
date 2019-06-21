@@ -1,5 +1,6 @@
 package com.example.mydrive;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -39,6 +40,25 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initviewpager();
         initListener();
+        pic();
+    }
+
+    private void pic() {
+        Drawable drawable = getResources().getDrawable(R.drawable.test_selector);
+        drawable.setBounds(0, 0, 100, 80);
+        rb_kaoshi.setCompoundDrawables(null, drawable, null, null);
+
+        Drawable drawable1 = getResources().getDrawable(R.drawable.me_selector);
+        drawable1.setBounds(0, 0, 100, 80);
+        rb_me.setCompoundDrawables(null, drawable1, null, null);
+
+        Drawable drawable2 = getResources().getDrawable(R.drawable.xiaoshuo_selector);
+        drawable2.setBounds(0, 0, 100, 80);
+        rb_xiaoshuo.setCompoundDrawables(null, drawable2, null, null);
+
+        Drawable drawable3 = getResources().getDrawable(R.drawable.zixun_selector);
+        drawable3.setBounds(0, 0, 100, 80);
+        rb_zixun.setCompoundDrawables(null, drawable3, null, null);
     }
 
     private void initListener() {

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,6 +23,8 @@ import com.google.gson.Gson;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
+import java.util.ArrayList;
 
 public class XunxuActivity extends AppCompatActivity {
 
@@ -41,6 +44,7 @@ public class XunxuActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                final ArrayList<Errors>list=new ArrayList<>();
                 OkHttpClient okHttpClient = new OkHttpClient();
                 Request request = new Request.Builder().url("http://v.juhe.cn/jztk/query?subject=1&model=c1&key=f5fa410f03e84fc4f3d491fb3a324aaf&testType=rand").get().build();
                 try {
@@ -52,6 +56,8 @@ public class XunxuActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             lv_xunxu.setAdapter(new BaseAdapter() {
+
+
                                 class ViewHolder {
                                     public View rootView;
                                     public TextView tv_title;
@@ -61,6 +67,9 @@ public class XunxuActivity extends AppCompatActivity {
                                     public RadioButton rb_3;
                                     public RadioButton rb_4;
                                     public RadioGroup radioGroup;
+                                    public TextView tvanswer;
+                                    public TextView tvjiexi;
+                                    public LinearLayout ll2;
 
                                     public ViewHolder(View rootView) {
                                         this.rootView = rootView;
@@ -71,6 +80,9 @@ public class XunxuActivity extends AppCompatActivity {
                                         this.rb_3 = (RadioButton) rootView.findViewById(R.id.rb_3);
                                         this.rb_4 = (RadioButton) rootView.findViewById(R.id.rb_4);
                                         this.radioGroup = (RadioGroup) rootView.findViewById(R.id.radioGroup);
+                                        this.tvanswer = (TextView) rootView.findViewById(R.id.tvanswer);
+                                        this.tvjiexi = (TextView) rootView.findViewById(R.id.tvjiexi);
+                                        this.ll2 = (LinearLayout) rootView.findViewById(R.id.ll2);
                                     }
 
                                 }
@@ -94,61 +106,66 @@ public class XunxuActivity extends AppCompatActivity {
                                 public View getView(final int position, View convertView, ViewGroup parent) {
                                     convertView = LayoutInflater.from(XunxuActivity.this).inflate(R.layout.item, parent, false);
                                     ViewHolder viewHolder = new ViewHolder(convertView);
-                                    final int i=position+1;
-                                    viewHolder.tv_title.setText(i+"."+subject.getResult().get(position).getQuestion());
-                                    viewHolder.rb_1.setText("A."+subject.getResult().get(position).getItem1());
-                                    viewHolder.rb_2.setText("B"+subject.getResult().get(position).getItem2());
-                                    viewHolder.rb_3.setText("C"+subject.getResult().get(position).getItem3());
-                                    viewHolder.rb_4.setText("D"+subject.getResult().get(position).getItem4());
-                                    final String string=position+"";
+                                    final int i = position + 1;
+                                    viewHolder.ll2.setVisibility(View.GONE);
+                                            viewHolder.tv_title.setText(i + "." + subject.getResult().get(position).getQuestion());
+                                    viewHolder.rb_1.setText("A." + subject.getResult().get(position).getItem1());
+                                    viewHolder.rb_2.setText("B" + subject.getResult().get(position).getItem2());
+                                    viewHolder.rb_3.setText("C" + subject.getResult().get(position).getItem3());
+                                    viewHolder.rb_4.setText("D" + subject.getResult().get(position).getItem4());
+                                    final String string = position + "";
                                     viewHolder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                                         @Override
                                         public void onCheckedChanged(RadioGroup group, int checkedId) {
-                                            switch (checkedId){
+                                            switch (checkedId) {
                                                 case R.id.rb_1:
-                                                    if (subject.getResult().get(position).getAnswer().equals("1")){
+                                                    if (subject.getResult().get(position).getAnswer().equals("1")) {
                                                         Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
-                                                    }else {
-                                                        Errors errors=new Errors();
+                                                    } else {
+                                                        Errors errors = new Errors();
                                                         errors.setNum(position);
+                                                        list.add(errors);
                                                         Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
-                                                        intent.putExtra("position",string);
+                                                        intent.putExtra("position", string);
                                                         startActivity(intent);
                                                     }
 
                                                     break;
                                                 case R.id.rb_2:
-                                                    if (subject.getResult().get(position).getAnswer().equals("2")){
+                                                    if (subject.getResult().get(position).getAnswer().equals("2")) {
                                                         Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
-                                                    }else {
-                                                        Errors errors=new Errors();
+                                                    } else {
+                                                        Errors errors = new Errors();
                                                         errors.setNum(position);
+                                                        list.add(errors);
                                                         Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
-                                                        intent.putExtra("position",string);
+                                                        intent.putExtra("position", string);
                                                         startActivity(intent);
                                                     }
 
                                                     break;
                                                 case R.id.rb_3:
-                                                    if (subject.getResult().get(position).getAnswer().equals("3")){
+                                                    if (subject.getResult().get(position).getAnswer().equals("3")) {
                                                         Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
-                                                    }else {
-                                                        Errors errors=new Errors();
+                                                    } else {
+                                                        Errors errors = new Errors();
                                                         errors.setNum(position);
+                                                        list.add(errors);
                                                         Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
-                                                        intent.putExtra("position",string);
+                                                        intent.putExtra("position", string);
                                                         startActivity(intent);
                                                     }
 
                                                     break;
                                                 case R.id.rb_4:
-                                                    if (subject.getResult().get(position).getAnswer().equals("4")){
+                                                    if (subject.getResult().get(position).getAnswer().equals("4")) {
                                                         Toast.makeText(XunxuActivity.this, "答案正确!", Toast.LENGTH_SHORT).show();
-                                                    }else {
-                                                        Errors errors=new Errors();
+                                                    } else {
+                                                        Errors errors = new Errors();
                                                         errors.setNum(position);
                                                         Intent intent = new Intent(XunxuActivity.this, ErrorActivity.class);
-                                                        intent.putExtra("position",string);
+                                                        list.add(errors);
+                                                        intent.putExtra("position", string);
                                                         startActivity(intent);
                                                     }
 
@@ -158,15 +175,15 @@ public class XunxuActivity extends AppCompatActivity {
                                             }
                                         }
                                     });
-                                    if (subject.getResult().get(position).getItem3().equals("")){
+                                    if (subject.getResult().get(position).getItem3().equals("")) {
                                         viewHolder.rb_3.setVisibility(View.GONE);
                                         viewHolder.rb_4.setVisibility(View.GONE);
-                                    }else {
+                                    } else {
 
                                     }
-                                    if (subject.getResult().get(position).getUrl().equals("")){
+                                    if (subject.getResult().get(position).getUrl().equals("")) {
 
-                                    }else {
+                                    } else {
                                         Glide.with(XunxuActivity.this).load(subject.getResult().get(position).getUrl()).into(viewHolder.img_timu);
                                     }
 

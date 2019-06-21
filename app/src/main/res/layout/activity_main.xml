@@ -62,6 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:drawableTop="@drawable/test_selector"
                 android:textColor="@drawable/text"
                 android:button="@null"
                 android:checked="true"
@@ -72,6 +73,7 @@
             <RadioButton
                 android:id="@+id/rb_zixun"
                 android:layout_width="wrap_content"
+                android:drawableTop="@drawable/zixun_selector"
                 android:layout_height="wrap_content"
                 android:textColor="@drawable/text"
                 android:layout_weight="1"
@@ -84,6 +86,7 @@
             <RadioButton
                 android:id="@+id/rb_xiaoshuo"
                 android:layout_width="wrap_content"
+                android:drawableTop="@drawable/xiaoshuo_selector"
                 android:textColor="@drawable/text"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -95,6 +98,7 @@
             <RadioButton
                 android:id="@+id/rb_me"
                 android:layout_width="wrap_content"
+                android:drawableTop="@drawable/me_selector"
                 android:layout_height="wrap_content"
                 android:textColor="@drawable/text"
                 android:layout_weight="1"

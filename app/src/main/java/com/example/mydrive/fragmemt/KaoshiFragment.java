@@ -60,5 +60,19 @@ public class KaoshiFragment extends Fragment {
 
         img_error = (ImageView) view.findViewById(R.id.img_error);
         img_suiji = (ImageView) view.findViewById(R.id.img_suiji);
+        img_suiji.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, MoniActivity.class);
+                startActivity(intent);
+            }
+        });
+        img_error.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, QuestionsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

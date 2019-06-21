@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -49,6 +50,8 @@ public class MoniActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             lv_xunxu.setAdapter(new BaseAdapter() {
+
+
                                 class ViewHolder {
                                     public View rootView;
                                     public TextView tv_title;
@@ -58,6 +61,9 @@ public class MoniActivity extends AppCompatActivity {
                                     public RadioButton rb_3;
                                     public RadioButton rb_4;
                                     public RadioGroup radioGroup;
+                                    public TextView tvanswer;
+                                    public TextView tvjiexi;
+                                    public LinearLayout ll2;
 
                                     public ViewHolder(View rootView) {
                                         this.rootView = rootView;
@@ -68,6 +74,9 @@ public class MoniActivity extends AppCompatActivity {
                                         this.rb_3 = (RadioButton) rootView.findViewById(R.id.rb_3);
                                         this.rb_4 = (RadioButton) rootView.findViewById(R.id.rb_4);
                                         this.radioGroup = (RadioGroup) rootView.findViewById(R.id.radioGroup);
+                                        this.tvanswer = (TextView) rootView.findViewById(R.id.tvanswer);
+                                        this.tvjiexi = (TextView) rootView.findViewById(R.id.tvjiexi);
+                                        this.ll2 = (LinearLayout) rootView.findViewById(R.id.ll2);
                                     }
 
                                 }
@@ -91,21 +100,38 @@ public class MoniActivity extends AppCompatActivity {
                                 public View getView(int position, View convertView, ViewGroup parent) {
                                     convertView = LayoutInflater.from(MoniActivity.this).inflate(R.layout.item, parent, false);
                                     ViewHolder viewHolder = new ViewHolder(convertView);
-                                    int i=position+1;
-                                    viewHolder.tv_title.setText(i+"."+subject.getResult().get(position).getQuestion());
-                                    viewHolder.rb_1.setText("A."+subject.getResult().get(position).getItem1());
-                                    viewHolder.rb_2.setText("B"+subject.getResult().get(position).getItem2());
-                                    viewHolder.rb_3.setText("C"+subject.getResult().get(position).getItem3());
-                                    viewHolder.rb_4.setText("D"+subject.getResult().get(position).getItem4());
-                                    if (subject.getResult().get(position).getItem3().equals("")){
+                                    int i = position + 1;
+                                    viewHolder.tv_title.setText(i + "." + subject.getResult().get(position).getQuestion());
+                                    viewHolder.rb_1.setText("A." + subject.getResult().get(position).getItem1());
+                                    viewHolder.rb_2.setText("B" + subject.getResult().get(position).getItem2());
+                                    viewHolder.rb_3.setText("C" + subject.getResult().get(position).getItem3());
+                                    viewHolder.tvjiexi.setText(subject.getResult().get(position).getExplains());
+                                    viewHolder.rb_4.setText("D" + subject.getResult().get(position).getItem4());
+                                    int answer = Integer.valueOf(subject.getResult().get(Integer.valueOf(position)).getAnswer());
+
+                                    switch (answer){
+                                        case 1:
+                                            viewHolder.tvanswer.setText("答案:A");
+                                            break;
+                                        case 2:
+                                            viewHolder.tvanswer.setText("答案:B");
+                                            break;
+                                        case 3:
+                                            viewHolder.tvanswer.setText("答案:C");
+                                            break;
+                                        case 4:
+                                            viewHolder.tvanswer.setText("答案:D");
+                                            break;
+                                    }
+                                    if (subject.getResult().get(position).getItem3().equals("")) {
                                         viewHolder.rb_3.setVisibility(View.GONE);
                                         viewHolder.rb_4.setVisibility(View.GONE);
-                                    }else {
+                                    } else {
 
                                     }
-                                    if (subject.getResult().get(position).getUrl().equals("")){
+                                    if (subject.getResult().get(position).getUrl().equals("")) {
 
-                                    }else {
+                                    } else {
                                         Glide.with(MoniActivity.this).load(subject.getResult().get(position).getUrl()).into(viewHolder.img_timu);
                                     }
 
